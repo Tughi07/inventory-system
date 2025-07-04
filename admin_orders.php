@@ -1,6 +1,5 @@
 <?php
 include 'admin_required.php';
-session_start();
 
 // Get all orders from the database
 $result = $conn->query("
