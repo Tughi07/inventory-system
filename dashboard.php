@@ -1,5 +1,5 @@
 <?php
-include 'config.php';
+include 'admin_required.php';
 
 $totalSales = $conn->query("SELECT SUM(total_price) AS total FROM sales")->fetch_assoc();
 $topProduct = $conn->query("SELECT product_id, COUNT(*) AS sales_count FROM sales GROUP BY product_id ORDER BY sales_count DESC LIMIT 1")->fetch_assoc();
