@@ -25,7 +25,6 @@ $result = $stmt->get_result();
 </head>
 <body>
 
-<!-- ✅ Navbar same as index.php -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
     <a class="navbar-brand fw-bold" href="index.php">SneakerVault</a>

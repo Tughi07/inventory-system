@@ -22,14 +22,11 @@ $result = $conn->query("SELECT * FROM products ORDER BY RAND() LIMIT 3");
   <div class="container">
     <a class="navbar-brand fw-bold" href="index.php">SneakerVault</a>
 
-    <!-- ✅ TOGGLER FOR MOBILE -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- ✅ COLLAPSE WRAPPER -->
     <div class="collapse navbar-collapse" id="navbarContent">
-      <!-- ✅ LEFT: NAV LINKS -->
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item"><a class="nav-link active" href="index.php">Home</a></li>
         <li class="nav-item"><a class="nav-link" href="store.php">Shop</a></li>
@@ -42,7 +39,6 @@ $result = $conn->query("SELECT * FROM products ORDER BY RAND() LIMIT 3");
         <?php endif; ?>
       </ul>
 
-      <!-- ✅ RIGHT: SEARCH FORM -->
       <form action="store.php" method="get" class="d-flex">
         <input class="form-control me-2" type="search" name="search" placeholder="Search sneakers..." aria-label="Search">
         <button class="btn btn-outline-light" type="submit">Search</button>
@@ -51,7 +47,6 @@ $result = $conn->query("SELECT * FROM products ORDER BY RAND() LIMIT 3");
   </div>
 </nav>
 
-<!-- ✅ HERO SECTION with overlay -->
 <section class="hero-section text-white d-flex align-items-center justify-content-center text-center">
   <div class="overlay"></div>
   <div class="content">
@@ -61,7 +56,6 @@ $result = $conn->query("SELECT * FROM products ORDER BY RAND() LIMIT 3");
   </div>
 </section>
 
-<!-- ✅ FEATURED SNEAKERS -->
 <div class="container my-5">
   <h2 class="text-center mb-4">🔥 Featured Sneakers</h2>
   <div class="row">
@@ -81,7 +75,6 @@ $result = $conn->query("SELECT * FROM products ORDER BY RAND() LIMIT 3");
   </div>
 </div>
 
-<!-- ✅ TRUST BAR -->
 <section class="bg-light py-4">
   <div class="container text-center">
     <h5 class="fw-bold mb-2">Trusted by 1,000+ Sneakerheads Worldwide</h5>
@@ -89,7 +82,6 @@ $result = $conn->query("SELECT * FROM products ORDER BY RAND() LIMIT 3");
   </div>
 </section>
 
-<!-- 🔥 Shop by Brands -->
 <section class="container my-5">
   <h3 class="mb-4 text-center">Shop by Brands</h3>
 
@@ -124,11 +116,9 @@ $result = $conn->query("SELECT * FROM products ORDER BY RAND() LIMIT 3");
         </div>
       </a>
     </div>
-
-    <!-- Add more brands if needed -->
   </div>
 </section>
-<!-- ✅ FOOTER with icons -->
+
 <footer class="bg-dark text-white text-center py-4">
   <div class="mb-2">
     <a href="#" class="text-white me-3"><i class="bi bi-facebook"></i></a>

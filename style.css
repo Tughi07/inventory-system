@@ -1,8 +1,3 @@
-/* ================================
-   SneakerVault - Final style.css
-   ================================ */
-
-/* ✅ BODY RESET */
 body {
   font-family: Arial, Helvetica, sans-serif;
   background: #fff;
@@ -10,7 +5,6 @@ body {
   line-height: 1.6;
 }
 
-/* ✅ NAVBAR */
 .navbar-brand {
   font-weight: 700;
   letter-spacing: 0.5px;
@@ -24,7 +18,6 @@ body {
   color: #f0ad4e;
 }
 
-/* ✅ HERO SECTION with overlay */
 .hero-section {
   background: url('uploads/hero-sneaker.jpg') center/cover no-repeat;
   height: 70vh;
@@ -62,7 +55,6 @@ body {
   border-radius: 50px;
 }
 
-/* ✅ FEATURED CARDS */
 .card-img-top {
   height: 250px;
   object-fit: cover;
@@ -81,7 +73,6 @@ body {
   font-weight: 600;
 }
 
-/* ✅ CATEGORY BOXES */
 .category-box {
   display: block;
   padding: 20px;
@@ -98,12 +89,10 @@ body {
   color: #000;
 }
 
-/* ✅ TRUST BAR */
 .bg-light h5 {
   font-weight: 600;
 }
 
-/* ✅ FOOTER */
 footer {
   font-size: 0.9rem;
 }
@@ -118,7 +107,6 @@ footer a:hover {
   color: #f0ad4e;
 }
 
-/* ✅ SEARCH INPUT WIDTH LIMIT */
 .navbar form input {
   max-width: 200px;
 }
@@ -129,7 +117,6 @@ footer a:hover {
   }
 }
 
-/* ✅ BUTTON STYLES */
 .btn-dark {
   background: #000;
   border: none;

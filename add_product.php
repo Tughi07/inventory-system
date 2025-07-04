@@ -1,6 +1,6 @@
 <?php
+include 'admin_required.php';
 session_start();
-include 'config.php';
 
 // Ensure only admins can access
 if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'admin') {
