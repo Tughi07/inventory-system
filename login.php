@@ -4,7 +4,7 @@ include 'config.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
-    $password = md5($_POST['password']); // Hash password
+    $password = $_POST['password']; // Hash password
 
     // Prepare the statement to fetch `id`, `username`, and `role`
     $stmt = $conn->prepare("SELECT id, username, role FROM users WHERE username=? AND password=?");

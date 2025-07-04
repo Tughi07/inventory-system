@@ -3,10 +3,10 @@ session_start();
 include 'config.php';
 
 // Ensure only admins can access this page
-if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'admin') {
+/*"""if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'admin') {
     header("Location: login.php");
-    exit();
-}
+   exit();"""
+}*/
 
 // Get all orders from the database
 $result = $conn->query("

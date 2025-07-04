@@ -1,0 +1,155 @@
+/* ================================
+   SneakerVault - Final style.css
+   ================================ */
+
+/* ✅ BODY RESET */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #fff;
+  color: #111;
+  line-height: 1.6;
+}
+
+/* ✅ NAVBAR */
+.navbar-brand {
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.navbar-nav .nav-link {
+  margin-left: 10px;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #f0ad4e;
+}
+
+/* ✅ HERO SECTION with overlay */
+.hero-section {
+  background: url('uploads/hero-sneaker.jpg') center/cover no-repeat;
+  height: 70vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-section .overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+}
+
+.hero-section .content {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.hero-section h1 {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.hero-section p {
+  font-size: 1.2rem;
+}
+
+.hero-section .btn {
+  font-weight: 500;
+  padding: 12px 30px;
+  border-radius: 50px;
+}
+
+/* ✅ FEATURED CARDS */
+.card-img-top {
+  height: 250px;
+  object-fit: cover;
+}
+
+.card {
+  border: none;
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: scale(1.02);
+}
+
+.card-title {
+  font-weight: 600;
+}
+
+/* ✅ CATEGORY BOXES */
+.category-box {
+  display: block;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  text-decoration: none;
+  color: #111;
+  font-weight: 500;
+  transition: background 0.2s ease;
+}
+
+.category-box:hover {
+  background: #f8f9fa;
+  color: #000;
+}
+
+/* ✅ TRUST BAR */
+.bg-light h5 {
+  font-weight: 600;
+}
+
+/* ✅ FOOTER */
+footer {
+  font-size: 0.9rem;
+}
+
+footer a {
+  color: #fff;
+  margin: 0 8px;
+  transition: color 0.2s ease;
+}
+
+footer a:hover {
+  color: #f0ad4e;
+}
+
+/* ✅ SEARCH INPUT WIDTH LIMIT */
+.navbar form input {
+  max-width: 200px;
+}
+
+@media (max-width: 768px) {
+  .navbar form {
+    margin-top: 10px;
+  }
+}
+
+/* ✅ BUTTON STYLES */
+.btn-dark {
+  background: #000;
+  border: none;
+}
+
+.btn-dark:hover {
+  background: #333;
+}
+
+.btn-outline-dark:hover {
+  background: #000;
+  color: #fff;
+}
+.brand-logo {
+  width: 80px;
+  height: auto;
+  object-fit: contain;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  transition: 0.3s ease;
+}

@@ -1,30 +1,41 @@
 <?php
 session_start();
+include 'config.php';
 
-// Initialize cart if not set
-if (!isset($_SESSION['cart'])) {
-    $_SESSION['cart'] = [];
+// Validate ID
+if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
+  die("Invalid product ID.");
 }
 
-$product_id = $_POST['product_id'];
-$product_name = $_POST['product_name'];
-$price = $_POST['price'];
-$quantity = $_POST['quantity'];
-$image = $_POST['image'];
+$product_id = intval($_GET['id']);
 
-// Check if product already in cart, update quantity if exists
+// Get product details from your DB
+$stmt = $conn->prepare("SELECT * FROM products WHERE id = ?");
+$stmt->bind_param("i", $product_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows === 0) {
+  die("Product not found.");
+}
+
+$product = $result->fetch_assoc();
+
+// Build cart item
+$cart_item = [
+  'name' => $product['name'],
+  'price' => $product['price'],
+  'quantity' => 1,
+  'image' => !empty($product['image']) ? $product['image'] : 'placeholder.jpg'
+];
+
+// If already in cart, increase quantity
 if (isset($_SESSION['cart'][$product_id])) {
-    $_SESSION['cart'][$product_id]['quantity'] += $quantity;
+  $_SESSION['cart'][$product_id]['quantity'] += 1;
 } else {
-    $_SESSION['cart'][$product_id] = [
-        'name' => $product_name,
-        'price' => $price,
-        'quantity' => $quantity,
-        'image' => $image
-    ];
+  $_SESSION['cart'][$product_id] = $cart_item;
 }
 
-// Redirect to cart page
+// Redirect to cart with a friendly message
 header("Location: cart.php");
 exit();
-?>
