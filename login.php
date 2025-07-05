@@ -1,6 +1,7 @@
 <?php
 include 'config.php';
 session_start();
+$title = "Login";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$email = $_POST['email'];
@@ -37,32 +38,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			header('Location: index.php');
 			exit();
 		} else {
-			$error = "Invalid email or password!";
+			$_SESSION['error_message'] = "Invalid email or password!";
 		}
 	} else {
-		$error = "Invalid email or password!";
+		$_SESSION['error_message'] = "Invalid email or password!";
 	}
 }
+
+include 'receive_message.php';
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Login</title>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
+<?php include 'templates/header.php' ?>
 
-<body class="d-flex justify-content-center align-items-center vh-100 bg-light">
+<div class="h-100 d-flex justify-content-center align-items-start hero-section">
+	<div class="card p-4 shadow mt-5" style="width: 400px;">
+		<h3 class="text-center">Login to your account</h3>
 
-	<div class="card p-4 shadow" style="width: 350px;">
-		<h3 class="text-center">Login</h3>
-
-		<?php if (isset($error)) { ?>
-			<div class="alert alert-danger text-center"><?= htmlspecialchars($error) ?></div>
-		<?php } ?>
+		<?php if ($success_message): ?>
+			<div class="alert alert-success">
+				<?= htmlspecialchars($success_message) ?>
+			</div>
+		<?php endif; ?>
+		<?php if ($error_message): ?>
+			<div class="alert alert-danger">
+				<?= htmlspecialchars($error_message) ?>
+			</div>
+		<?php endif; ?>
 
 		<form method="post">
 			<div class="mb-3">
@@ -73,14 +78,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				<label class="form-label">Password:</label>
 				<input type="password" name="password" class="form-control">
 			</div>
-			<button type="submit" class="btn btn-primary w-100">Login</button>
+			<button type="submit" class="btn btn-dark w-100">Login</button>
 		</form>
 
 		<p class="text-center mt-3">
 			<a href="register.php">Create an account</a>
 		</p>
 	</div>
+</div>
 
-</body>
+<?php include 'templates/footer.php' ?>
 
 </html>

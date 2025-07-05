@@ -21,7 +21,7 @@ if (isset($_GET['id'])) {
     echo "Deleting order ID: " . $order_id . "<br>";
 
     // Run delete query
-    $query = "DELETE FROM sales WHERE id = ?";
+    $query = "DELETE FROM orders WHERE id = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("i", $order_id);
     if ($stmt->execute()) {

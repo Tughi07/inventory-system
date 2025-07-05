@@ -57,7 +57,7 @@ $title = 'Sneaker Vault - Home';
   <div class="row justify-content-center align-items-stretch">
     <?php while ($row = $brandResult->fetch_assoc()): ?>
       <div class="col-6 col-md-3 d-flex align-items-stretch">
-        <a href="brand.php?brand=Nike" class="text-decoration-none w-100 h-100 d-flex align-items-stretch">
+        <a href="store.php?brand=<?= $row['id'] ?>" class="text-decoration-none w-100 h-100 d-flex align-items-stretch">
           <div class="card shadow-sm border-0 text-center p-3 flex-fill h-100 d-flex flex-column justify-content-center">
             <img src="uploads/<?= $row['image_url'] ?>" class="brand-logo mb-2 h-50" alt="<?= $row['name'] ?>">
             <h6 class="mb-0"><?= $row['name'] ?></h6>

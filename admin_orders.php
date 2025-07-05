@@ -20,14 +20,15 @@ $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 <?php include 'templates/header.php' ?>
 
-<div class="container mt-4">
-	<h2 class="text-center">📦 Manage Orders</h2>
+<div class="container py-5 h-100">
+	<h2 class="text-center">Manage Orders</h2>
 
 	<table class="table table-bordered table-striped">
 		<thead class="table-dark">
 			<tr>
 				<th>Order ID</th>
 				<th>Customer</th>
+				<th>Products</th>
 				<th>Total Price</th>
 				<th>Order Date</th>
 				<th>Actions</th>
@@ -38,6 +39,7 @@ $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
 				<tr>
 					<td><?= $row['id'] ?></td>
 					<td><?= $row['customer_name'] ?></td>
+					<td><?= $row['product'] ?></td>
 					<td>$<?= number_format($row['total_amount'], 2) ?></td>
 					<td><?= $row['created_at'] ?></td>
 					<td>
@@ -48,7 +50,7 @@ $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
 		</tbody>
 	</table>
 
-	<a href="inventory.php" class="btn btn-secondary">Back to Inventory</a>
+	<a href="index.php" class="btn btn-dark">Back to home</a>
 </div>
 
 <?php include 'templates/footer.php' ?>

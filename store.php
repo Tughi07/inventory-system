@@ -19,13 +19,6 @@ if (!empty($_GET['gender'])) {
   $types .= "s";
 }
 
-// Filter: size (assuming size stored as decimal or int)
-if (!empty($_GET['size'])) {
-  $filters[] = "size = ?";
-  $params[] = intval($_GET['size']);
-  $types .= "i"; // integer
-}
-
 // Filter: brand
 if (!empty($_GET['brand'])) {
   $filters[] = "brand_id = ?";
@@ -119,19 +112,6 @@ $title = 'SneakerValut - Shopping'
         <option value="male" <?= (isset($_GET['gender']) && $_GET['gender'] == 'male') ? 'selected' : '' ?>>Male</option>
         <option value="female" <?= (isset($_GET['gender']) && $_GET['gender'] == 'female') ? 'selected' : '' ?>>Female</option>
         <option value="unisex" <?= (isset($_GET['gender']) && $_GET['gender'] == 'unisex') ? 'selected' : '' ?>>Unisex</option>
-      </select>
-    </div>
-
-    <div class="col-auto">
-      <select name="size" class="form-select">
-        <option value="">Size (All)</option>
-        <?php
-        // Example sizes - adjust as needed
-        for ($s = 5; $s <= 12; $s += 0.5) {
-          $selected = (isset($_GET['size']) && $_GET['size'] == $s) ? 'selected' : '';
-          echo "<option value=\"$s\" $selected>$s</option>";
-        }
-        ?>
       </select>
     </div>
 

@@ -24,7 +24,7 @@ try {
     $stmt->execute(['admin@example.com']);
     if (!$stmt->fetch()) {
         $insertStmt = $pdo->prepare("
-            INSERT INTO users (email, password_hash, first_name, last_name, phone, role)
+            INSERT INTO users (email, password_hash, first_name, last_name, role)
             VALUES (?, ?, ?, ?, ?, ?)
         ");
         $insertStmt->execute([
@@ -32,7 +32,6 @@ try {
             $adminPassword,
             'Admin',
             'User',
-            '1234567890',
             'admin'
         ]);
         echo "Admin account created.";
@@ -48,7 +47,6 @@ try {
             $customerPassword,
             'Customer',
             'User',
-            '0987654321',
             'customer'
         ]);
         echo "Customer account created.\n";

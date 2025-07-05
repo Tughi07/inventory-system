@@ -21,6 +21,8 @@ if (isset($_SESSION['session_token'])) {
     if ($token_expires_at < time()) {
       header("Location: login.php");
       exit();
+    } else {
+      $_SESSION['user_id'] = $data['user_id'];
     }
   } else {
     header("Location: login.php");
