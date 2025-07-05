@@ -2,61 +2,55 @@
 include 'admin_required.php';
 
 // Get all orders from the database
-$result = $conn->query("
-    SELECT sales.id, sales.product_id, sales.quantity, sales.total_price, sales.sale_date, 
-           products.name AS product_name, users.username AS customer_name
-    FROM sales
-    JOIN products ON sales.product_id = products.id
-    JOIN users ON sales.user_id = users.id
-    ORDER BY sales.sale_date DESC
-");
+$sql = 'SELECT orders.id, orders.total_amount, orders.status,
+ 	orders.created_at, users.first_name as customer_name,
+	order_items.quantity, products.name as product
+ 	FROM orders JOIN users ON orders.user_id = users.id 
+	INNER JOIN order_items ON orders.id = order_items.order_id
+	JOIN products ON order_items.product_id = products.id 
+	ORDER BY orders.created_at DESC';
+
+$result = mysqli_query($conn, $sql);
+
+$rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Orders</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
+
+<?php include 'templates/header.php' ?>
 
 <div class="container mt-4">
-    <h2 class="text-center">📦 Manage Orders</h2>
-    
-    <table class="table table-bordered table-striped">
-        <thead class="table-dark">
-            <tr>
-                <th>Order ID</th>
-                <th>Customer</th>
-                <th>Product</th>
-                <th>Quantity</th>
-                <th>Total Price</th>
-                <th>Order Date</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php while ($row = $result->fetch_assoc()) { ?>
-                <tr>
-                    <td><?= $row['id'] ?></td>
-                    <td><?= $row['customer_name'] ?></td>
-                    <td><?= $row['product_name'] ?></td>
-                    <td><?= $row['quantity'] ?></td>
-                    <td>$<?= number_format($row['total_price'], 2) ?></td>
-                    <td><?= $row['sale_date'] ?></td>
-                    <td>
-                        <a href="delete_order.php?id=<?= $row['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this order?');">Delete</a>
-                    </td>
-                </tr>
-            <?php } ?>
-        </tbody>
-    </table>
-    
-    <a href="inventory.php" class="btn btn-secondary">Back to Inventory</a>
+	<h2 class="text-center">📦 Manage Orders</h2>
+
+	<table class="table table-bordered table-striped">
+		<thead class="table-dark">
+			<tr>
+				<th>Order ID</th>
+				<th>Customer</th>
+				<th>Total Price</th>
+				<th>Order Date</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php foreach ($rows as $row): ?>
+				<tr>
+					<td><?= $row['id'] ?></td>
+					<td><?= $row['customer_name'] ?></td>
+					<td>$<?= number_format($row['total_amount'], 2) ?></td>
+					<td><?= $row['created_at'] ?></td>
+					<td>
+						<a href="delete_order.php?id=<?= $row['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this order?');">Delete</a>
+					</td>
+				</tr>
+			<?php endforeach ?>
+		</tbody>
+	</table>
+
+	<a href="inventory.php" class="btn btn-secondary">Back to Inventory</a>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+<?php include 'templates/footer.php' ?>
+
 </html>

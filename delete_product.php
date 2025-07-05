@@ -27,12 +27,12 @@ $stmt = $conn->prepare("DELETE FROM products WHERE id = ?");
 $stmt->bind_param("i", $product_id);
 
 if ($stmt->execute()) {
-    echo "<p style='color:green;'>Product deleted successfully.</p>";
+    $_SESSION['success_message'] = 'Product deleted successfully.';
 } else {
-    echo "<p style='color:red;'>Error: Could not delete the product.</p>";
+    $_SESSION['error_message'] = 'Something went wrong when deleting product.';
 }
 
 // Redirect back to inventory
-header("Location: inventory.php");
+header("Location: add_product.php");
 exit();
 ?>
