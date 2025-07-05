@@ -77,9 +77,6 @@ include 'receive_message.php';
 $title = 'Add Product';
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
 <?php include 'templates/header.php'; ?>
 
 <div class="container h-100 pt-3">
@@ -96,7 +93,7 @@ $title = 'Add Product';
 
   <div class="mt-3">
     <div class="d-flex justify-content-between align-items-center">
-      <h4>Product List</h4>
+      <h4>Registered Brands</h4>
       <form method="GET">
         <div class="input-group" style="max-width: 400px;">
           <input type="text" name="search" class="form-control" placeholder="Search brands..." value="<?= htmlspecialchars($_GET['search'] ?? NULL) ?>">

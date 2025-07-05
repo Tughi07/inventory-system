@@ -26,7 +26,7 @@ $cart_item = [
   'name' => $product['name'],
   'price' => $product['price'],
   'quantity' => 1,
-  'image' => !empty($product['image']) ? $product['image'] : 'placeholder.jpg'
+  'image' => !empty($product['image_url']) ? $product['image_url'] : 'placeholder.jpg'
 ];
 
 // If already in cart, increase quantity
@@ -37,5 +37,6 @@ if (isset($_SESSION['cart'][$product_id])) {
 }
 
 // Redirect to cart with a friendly message
+$_SESSION['success_message'] = 'Product added successfuly!';
 header("Location: cart.php");
 exit();

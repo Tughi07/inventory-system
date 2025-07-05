@@ -1,4 +1,4 @@
-<footer class="bg-dark text-white text-center py-4">
+<footer class="bg-dark text-white text-center py-5">
   <div class="mb-2">
     <a href="#" class="text-white me-3"><i class="bi bi-facebook"></i></a>
     <a href="#" class="text-white me-3"><i class="bi bi-instagram"></i></a>

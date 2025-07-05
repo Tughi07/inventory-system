@@ -15,22 +15,22 @@ $brandResult = $conn->query("SELECT * FROM brands ORDER BY name");
 // Filter: gender
 if (!empty($_GET['gender'])) {
   $filters[] = "gender = ?";
-  $params[] = mysqli_escape_string($conn, $_GET['gender']);
+  $params[] = $_GET['gender'];
   $types .= "s";
 }
 
 // Filter: size (assuming size stored as decimal or int)
 if (!empty($_GET['size'])) {
   $filters[] = "size = ?";
-  $params[] = mysqli_escape_string($conn, $_GET['size']);
-  $types .= "d"; // double (float)
+  $params[] = intval($_GET['size']);
+  $types .= "i"; // integer
 }
 
 // Filter: brand
 if (!empty($_GET['brand'])) {
   $filters[] = "brand_id = ?";
-  $params[] = mysqli_escape_string($conn, $_GET['brand']);
-  $types .= "s";
+  $params[] = (int)$_GET['brand'];
+  $types .= "i";
 }
 
 // Filter: price range
@@ -52,25 +52,47 @@ if (!empty($_GET['price_range'])) {
 }
 
 // Get the search term from the URL if it exists
-$search = isset($_GET['search']) ? mysqli_escape_string($conn, trim($_GET['search'])) : '';
+$search = isset($_GET['search']) ? trim($_GET['search']) : '';
 
 // Base query: get all products
 $query = "SELECT * FROM products";
-
-// Combine filters into WHERE clause
 $where = "";
+$searchParam = null;
+
 if (count($filters) > 0) {
-  $where = "WHERE " . implode(" AND ", $filters);
+  $where = " WHERE " . implode(" AND ", $filters);
 }
 
-// If search is NOT empty, filter products
 if (!empty($search)) {
-  $safe_search = $conn->real_escape_string($search);
-  $query .= $where .= " AND name LIKE '%$safe_search%'";
+  if ($where) {
+    $where .= " AND name LIKE ?";
+  } else {
+    $where = " WHERE name LIKE ?";
+  }
+  $searchParam = "%$search%";
+  $types .= "s";
+  $params[] = $searchParam;
 }
 
-// Run the query
-$productResult = $conn->query($query);
+$query .= $where;
+$query .= " LIMIT ? OFFSET ?";
+$types .= "ii";
+$params[] = $limit;
+$params[] = $offset;
+
+// Prepare statement
+$stmt = $conn->prepare($query);
+
+if ($stmt === false) {
+  die("Prepare failed: " . $conn->error);
+}
+
+if ($types) {
+  $stmt->bind_param($types, ...$params);
+}
+
+$stmt->execute();
+$productResult = $stmt->get_result();
 $currentPage = 'shop';
 $title = 'SneakerValut - Shopping'
 ?>
@@ -80,14 +102,14 @@ $title = 'SneakerValut - Shopping'
 
 <?php include 'templates/header.php' ?>
 
-<div class="container my-5 h-100">
+<div class="container h-100">
   <?php if ($isAdmin): ?>
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="d-flex justify-content-between align-items-center my-4">
       <h2>All Sneakers</h2>
       <a type="button" class="btn btn-dark" href="add_product.php">Add Product</a>
     </div>
   <?php else: ?>
-    <h2 class="text-mb-4">All Sneakers</h2>
+    <h2 class="my-4">All Sneakers</h2>
   <?php endif ?>
   <form method="GET" class="mb-3 row g-2 justify-content-center">
 
@@ -117,8 +139,8 @@ $title = 'SneakerValut - Shopping'
       <select name="brand" class="form-select">
         <option value="">Brand (All)</option>
         <?php while ($row = $brandResult->fetch_assoc()): ?>
-          <?php $selected = (isset($_GET['brand']) && $_GET['brand'] == $brand) ? 'selected' : ''; ?>
-          <?php echo "<option value=\"$brand\" $selected>$brand</option>"; ?>
+          <?php $selected = (isset($_GET['brand']) && $_GET['brand'] == $row['id']) ? 'selected' : ''; ?>
+          <?php echo "<option value=\"{$row['id']}\" $selected>{$row['name']}</option>"; ?>
         <?php endwhile ?>
       </select>
     </div>
@@ -138,10 +160,13 @@ $title = 'SneakerValut - Shopping'
     </div>
 
   </form>
-  <div class="row">
-    <?php while ($row = $productResult->fetch_assoc()) { ?>
+  <div class="row mb-3">
+    <?php if ($productResult->num_rows === 0):  ?>
+      <h2 class="text-center">Search result empty</h2>
+    <?php endif ?>
+    <?php while ($row = $productResult->fetch_assoc()):  ?>
       <div class="col-md-3">
-        <div class="card mb-4 shadow-sm">
+        <div class="card shadow-sm">
           <img src="uploads/<?= htmlspecialchars($row['image_url']) ?>" class="card-img-top" alt="<?= htmlspecialchars($row['name']) ?>">
           <div class="card-body">
             <h5 class="card-title"><?= htmlspecialchars($row['name']) ?></h5>
@@ -150,16 +175,10 @@ $title = 'SneakerValut - Shopping'
           </div>
         </div>
       </div>
-    <?php } ?>
+    <?php endwhile ?>
   </div>
 </div>
 
-<!-- FOOTER -->
-<footer class="bg-dark text-white text-center py-3">
-  &copy; 2025 SneakerVault. All rights reserved.
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+<?php include 'templates/footer.php' ?>
 
 </html>

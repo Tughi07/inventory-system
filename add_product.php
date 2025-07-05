@@ -95,7 +95,7 @@ $title = 'Add Product';
 
 <?php include 'templates/header.php'; ?>
 
-<div class="container h-100 pt-3">
+<div class="container py-3">
 	<?php if ($success_message): ?>
 		<div class="alert alert-success">
 			<?= htmlspecialchars($success_message) ?>
@@ -107,7 +107,7 @@ $title = 'Add Product';
 		</div>
 	<?php endif; ?>
 
-	<div class="mt-3">
+	<div class="mt-5">
 		<div class="d-flex justify-content-between align-items-center">
 			<h4>Product List</h4>
 			<form method="GET">

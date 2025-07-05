@@ -34,7 +34,7 @@ if (isset($_SESSION['session_token'])) {
   <link href="style.css" rel="stylesheet">
 </head>
 
-<body class="min-vh-100">
+<body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
       <a class="navbar-brand fw-bold" href="index.php">SneakerVault</a>
@@ -47,7 +47,7 @@ if (isset($_SESSION['session_token'])) {
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item"><a class="nav-link <?= ($currentPage == 'home') ? 'active' : '' ?>" href="index.php">Home</a></li>
           <li class="nav-item"><a class="nav-link <?= ($currentPage == 'shop') ? 'active' : '' ?>" href="store.php">Shop</a></li>
-          <li class="nav-item"><a class="nav-link <?= ($currentPage == 'cart') ? 'active' : '' ?>" href="cart.php">Cart</a></li>
+
         </ul>
 
         <form action="store.php" method="get" class="d-flex">
@@ -55,6 +55,25 @@ if (isset($_SESSION['session_token'])) {
           <button class="btn btn-outline-light" type="submit">Search</button>
         </form>
         <ul class="navbar-nav mb-2 mb-lg-0">
+          <?php if (isset($_SESSION['cart'])) {
+            $cart_item_count = count($_SESSION['cart']);
+          } else {
+            $cart_item_count = 0;
+          } ?>
+          <li class="nav-item">
+            <a role="button" class="nav-link btn position-relative <?= ($currentPage == 'cart') ? 'active' : '' ?>" href="cart.php">
+              <?php if ($cart_item_count == 0): ?>
+                <i class="bi bi-bag"></i>
+              <?php else: ?>
+                <i class="bi bi-bag">
+                  <span class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger">
+                    <?= $cart_item_count ?>
+                    <span class="visually-hidden">cart items</span>
+                  </span>
+                </i>
+              <?php endif ?>
+            </a>
+          </li>
           <?php if ($isLoggedIn): ?>
             <?php if ($isAdmin): ?>
               <li class="nav-item dropdown">
