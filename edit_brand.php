@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	}
 
 	$stmt = $conn->prepare("UPDATE brands SET name=?, image_url=? WHERE id=?");
-	$stmt->bind_param("ssdssi", $name, $image);
+	$stmt->bind_param("ssi", $name, $image, $brand['id']);
 	if ($stmt->execute()) {
 		$_SESSION['success_message'] = 'Brand updated successfuly.';
 		header("Location: brand.php");
@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		</div>
 		<div class="mb-3">
 			<label class="form-label">Current Logo</label><br>
-			<img src="uploads/<?= $brand['image_url'] ?>" width="100">
+			<img style="object-fit: cover;" src="uploads/<?= $brand['image_url'] ?>" width="100">
 		</div>
 		<div class="mb-3">
 			<label class="form-label">Upload New Logo</label>
